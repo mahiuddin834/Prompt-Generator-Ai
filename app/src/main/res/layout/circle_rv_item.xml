@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="200dp"
+    android:layout_height="230dp"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    app:cardCornerRadius="20dp"
+    android:layout_margin="5dp"
+    app:cardElevation="10dp"
+    android:elevation="10dp">
+
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+
+        >
+
+        <ImageView
+            android:id="@+id/imageThumbCircle"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:src="@drawable/demo_img"
+            android:scaleType="centerCrop"
+            />
+
+        <TextView
+            android:id="@+id/promptTxtCircle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textSize="15dp"
+            android:textColor="@color/white"
+            android:layout_alignParentBottom="true"
+            android:layout_margin="10dp"
+            android:maxLines="2"
+            android:paddingStart="5dp"
+            android:paddingEnd="5dp"
+            android:text="The background should include a view of planet earth from space."
+            />
+
+    </RelativeLayout>
+
+
+
+</androidx.cardview.widget.CardView>

@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "209797429272",
+    "project_id": "prompt-ai-7b829",
+    "storage_bucket": "prompt-ai-7b829.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:209797429272:android:1a6cca8ba3a39857306b6d",
+        "android_client_info": {
+          "package_name": "com.itnation.promptai"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyA3j_TpmiseVq8RTrs_6kA7qymnPNXPT24"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

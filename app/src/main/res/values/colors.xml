@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="black">#FF000000</color>
+    <color name="white">#FFFFFFFF</color>
+    <color name="primary_dark">#000000</color>
+    <color name="primary_light">#222222</color>
+    <color name="primary">#9860e4</color>
+    <color name="yellow_light">#fae44b</color>
+    <color name="statusbar_color">#121212</color>
+    <color name="shimmer_color">#BCBCBC</color>
+</resources>

@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".Fragment.ExploreFragment">
+
+   
+
+    <EditText
+        android:id="@+id/searchEditTxt"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:inputType="text"
+        android:hint="Search here"
+        android:background="@drawable/search_edit_txt_bg"
+        android:layout_margin="5dp"
+        android:elevation="10dp"
+        android:padding="10dp"
+        android:drawableLeft="@drawable/ic_search_24"
+        android:textSize="20dp"
+        android:textColorHint="#959494"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <com.facebook.shimmer.ShimmerFrameLayout
+        android:id="@+id/shimmerLayout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/searchEditTxt"
+        android:orientation="vertical">
+
+        <include
+            layout="@layout/shimmer_home"
+            />
+
+
+    </com.facebook.shimmer.ShimmerFrameLayout>
+    
+    <LinearLayout
+        android:id="@+id/exploreRootLay"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_below="@+id/searchEditTxt"
+
+        >
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/categoryRV"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/mainRV"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+             />
+
+
+
+    </LinearLayout>
+
+
+
+
+
+
+</RelativeLayout>
