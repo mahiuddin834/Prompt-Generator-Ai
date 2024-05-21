@@ -3,7 +3,6 @@ package com.itnation.promptai;
 import android.os.Build;
 import android.os.Bundle;
 import android.view.MenuItem;
-import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.FrameLayout;
@@ -11,9 +10,6 @@ import android.widget.FrameLayout;
 import androidx.activity.EdgeToEdge;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.graphics.Insets;
-import androidx.core.view.ViewCompat;
-import androidx.core.view.WindowInsetsCompat;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
@@ -22,7 +18,6 @@ import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.itnation.promptai.Fragment.ExploreFragment;
 import com.itnation.promptai.Fragment.GenerateFragment;
 import com.itnation.promptai.Fragment.HomeFragment;
-import com.itnation.promptai.Fragment.SavedFragment;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -79,10 +74,6 @@ public class MainActivity extends AppCompatActivity {
                 } else if (itemId == R.id.explore) {
 
                     loadFragment(new ExploreFragment(), false);
-
-                } else if (itemId == R.id.saved) {
-
-                    loadFragment(new SavedFragment(), false);
 
                 }
 

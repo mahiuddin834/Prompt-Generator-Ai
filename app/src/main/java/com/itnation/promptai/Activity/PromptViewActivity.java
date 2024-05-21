@@ -43,7 +43,6 @@ public class PromptViewActivity extends AppCompatActivity {
         backBtn= findViewById(R.id.backBtn);
         mainImageView= findViewById(R.id.mainImageView);
         promptTxtView= findViewById(R.id.promptTxt);
-        saveImgBtn= findViewById(R.id.saveImgBtn);
         copyPromptBtn = findViewById(R.id.copyPromptBtn);
 
 

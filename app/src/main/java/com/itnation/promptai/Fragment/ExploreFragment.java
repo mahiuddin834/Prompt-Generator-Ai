@@ -88,6 +88,8 @@ public class ExploreFragment extends Fragment implements ExploreCategoryAdapter.
         loadCategory();
         loadMainRV("sliderHome");
 
+        String searchQuery = searchEditTxt.getText().toString();
+
 
         return view;
     }//-------------close onCreateView--------------------------

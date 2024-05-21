@@ -15,6 +15,7 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 import android.widget.Spinner;
@@ -26,6 +27,8 @@ import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
+
+
 import com.itnation.promptai.AiModel.AiModel;
 import com.itnation.promptai.AiModel.ResponseCallback;
 import com.itnation.promptai.R;
@@ -33,10 +36,10 @@ import com.itnation.promptai.R;
 public class CreatePromptActivity extends AppCompatActivity {
 
     EditText promptTitleTxt, ansTxt;
-    ImageView backBtn, copyBtn;
-    Button generateBtn;
+    ImageView backBtn;
+    Button generateBtn, copyBtn;
     Spinner promptTypeSpinner, aiListSpinner;
-    RelativeLayout ansLayout;
+    LinearLayout ansLayout;
     ProgressBar progressBar;
 
     String[] promptType = {
@@ -49,6 +52,8 @@ public class CreatePromptActivity extends AppCompatActivity {
 
     String promptTypeSpinnerTxt;
     String aiListSpinnerTxt;
+
+
 
 
     @Override
@@ -73,6 +78,12 @@ public class CreatePromptActivity extends AppCompatActivity {
         }
 
         //-------------------
+
+
+        //promptViewModel= ViewModelProviders.of(this).get(PromptViewModel.class);
+
+
+
 
 
         promptTitleTxt = findViewById(R.id.promptTitleTxt);
@@ -138,8 +149,8 @@ public class CreatePromptActivity extends AppCompatActivity {
 
 
 
-
         progressBar.setVisibility(View.VISIBLE);
+        ansLayout.setVisibility(View.GONE);
 
 
         String promptQuery = "I want to generate an " + promptTypeSpinnerTxt + " through" + aiListSpinnerTxt + "Ai. The "+ promptTypeSpinnerTxt +" I want is: "+  inputTxt +

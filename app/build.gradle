@@ -38,6 +38,7 @@ dependencies {
     implementation libs.firebase.analytics
     implementation libs.firebase.database
     implementation libs.legacy.support.v4
+    implementation libs.support.annotations
     testImplementation libs.junit
     androidTestImplementation libs.ext.junit
     androidTestImplementation libs.espresso.core
@@ -60,5 +61,7 @@ dependencies {
 
     // Shimmer anim
     implementation("com.facebook.shimmer:shimmer:0.5.0")
+
+
 
 }

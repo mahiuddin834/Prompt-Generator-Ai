@@ -1,5 +1,7 @@
 package com.itnation.promptai.Activity;
 
+import android.content.ClipboardManager;
+import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.net.Uri;
@@ -12,6 +14,7 @@ import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 import android.widget.Toast;
@@ -32,11 +35,11 @@ public class ImageToPromptActivity extends AppCompatActivity {
 
     private static final int SELECT_IMAGE_REQUEST = 1;
     Bitmap image;
-    ImageView backBtn, inputImage, copyBtn;
-    Button generateBtn;
+    ImageView backBtn, inputImage;
+    Button generateBtn, copyPromptBtn;
     EditText ansTxt;
     ProgressBar progressBar;
-    RelativeLayout ansLayout;
+    LinearLayout resultLay;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -65,11 +68,12 @@ public class ImageToPromptActivity extends AppCompatActivity {
 
         backBtn= findViewById(R.id.backBtn);
         inputImage= findViewById(R.id.inputImage);
-        copyBtn = findViewById(R.id.copyBtn);
         generateBtn = findViewById(R.id.generateBtn);
-        ansLayout= findViewById(R.id.ansLayout);
         ansTxt= findViewById(R.id.ansTxt);
         progressBar= findViewById(R.id.progressBar);
+        copyPromptBtn= findViewById(R.id.copyPromptBtn);
+        resultLay= findViewById(R.id.resultLay);
+
 
 
 
@@ -107,17 +111,20 @@ public class ImageToPromptActivity extends AppCompatActivity {
                 }
 
 
-
-
-
             }
         });
 
-        copyBtn.setOnClickListener(new View.OnClickListener() {
+        copyPromptBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
 
+                if (ansTxt != null){
+
+                    ClipboardManager cm = (ClipboardManager)ImageToPromptActivity.this.getSystemService(Context.CLIPBOARD_SERVICE);
+                    cm.setText(ansTxt.getText());
+                    Toast.makeText(ImageToPromptActivity.this, "Copied to clipboard", Toast.LENGTH_SHORT).show();
+                }
 
             }
         });
@@ -131,6 +138,7 @@ public class ImageToPromptActivity extends AppCompatActivity {
 
         progressBar.setVisibility(View.VISIBLE);
 
+        resultLay.setVisibility(View.GONE);
 
         String promptQuery = "Convert this image from image to prompt text.";
 
@@ -144,7 +152,7 @@ public class ImageToPromptActivity extends AppCompatActivity {
 
                 progressBar.setVisibility(View.GONE);
                 ansTxt.setText(response);
-                ansLayout.setVisibility(View.VISIBLE);
+                resultLay.setVisibility(View.VISIBLE);
 
             }
 
