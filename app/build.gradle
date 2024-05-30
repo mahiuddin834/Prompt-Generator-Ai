@@ -62,6 +62,10 @@ dependencies {
     // Shimmer anim
     implementation("com.facebook.shimmer:shimmer:0.5.0")
 
+    //meta audiance ads
+    implementation 'androidx.annotation:annotation:1.7.1'
+    implementation 'com.facebook.android:audience-network-sdk:6.16.0'
+
 
 
 }

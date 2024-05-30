@@ -1,11 +1,14 @@
 package com.itnation.promptai.Activity;
 
+import static android.content.ContentValues.TAG;
+
 import android.app.Activity;
 import android.content.ClipboardManager;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
@@ -28,7 +31,13 @@ import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
 
-
+import com.facebook.ads.Ad;
+import com.facebook.ads.AdError;
+import com.facebook.ads.AdListener;
+import com.facebook.ads.AdSize;
+import com.facebook.ads.AdView;
+import com.facebook.ads.InterstitialAd;
+import com.facebook.ads.InterstitialAdListener;
 import com.itnation.promptai.AiModel.AiModel;
 import com.itnation.promptai.AiModel.ResponseCallback;
 import com.itnation.promptai.R;
@@ -53,6 +62,10 @@ public class CreatePromptActivity extends AppCompatActivity {
     String promptTypeSpinnerTxt;
     String aiListSpinnerTxt;
 
+
+    AdView adView;
+    int bannerAdsClick=0;
+    LinearLayout banner_container;
 
 
 
@@ -108,11 +121,17 @@ public class CreatePromptActivity extends AppCompatActivity {
         getSpinnerTxt();
 
 
+        loadBannerAds();
+        fullScreenAds();
+
 
         generateBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
+                if (interstitialAd!=null && interstitialAd.isAdLoaded()){
+                    interstitialAd.show();
+                }
                 InputMethodManager imm = (InputMethodManager) getSystemService(Activity.INPUT_METHOD_SERVICE);
                 imm.toggleSoftInput(InputMethodManager.HIDE_IMPLICIT_ONLY, 0);
 
@@ -126,6 +145,8 @@ public class CreatePromptActivity extends AppCompatActivity {
                 } else {
                     promptTitleTxt.setError("Please write about your prompt");
                 }
+
+
 
 
             }
@@ -253,6 +274,136 @@ public class CreatePromptActivity extends AppCompatActivity {
 
 
 
+
+    }//---------------
+
+
+
+
+    //banner ads
+    private void loadBannerAds(){
+
+        adView = new AdView(this, "", AdSize.BANNER_HEIGHT_50);
+
+// Find the Ad Container
+        banner_container= findViewById(R.id.banner_container);
+
+// Add the ad view to your activity layout
+        banner_container.addView(adView);
+
+
+        AdListener adListener = new AdListener() {
+            @Override
+            public void onError(Ad ad, AdError adError) {
+
+
+            }
+
+            @Override
+            public void onAdLoaded(Ad ad) {
+// Ad loaded callback
+            }
+
+            @Override
+            public void onAdClicked(Ad ad) {
+
+                bannerAdsClick++;
+
+                if (bannerAdsClick>=2){
+
+                    if (adView!=null){
+                        adView.destroy();
+                        banner_container.setVisibility(View.GONE);
+                    }
+                }
+// Ad clicked callback
+            }
+
+            @Override
+            public void onLoggingImpression(Ad ad) {
+// Ad impression logged callback
+            }
+        };
+
+        adView.loadAd(adView.buildLoadAdConfig().withAdListener(adListener).build());
+    }
+    @Override
+    protected void onDestroy() {
+        if (adView != null) {
+            adView.destroy();
+        }
+
+        if (interstitialAd != null) {
+            interstitialAd.destroy();
+        }
+        super.onDestroy();
+    }
+
+
+    //====================
+
+
+    InterstitialAd interstitialAd;
+
+    private void fullScreenAds(){
+
+
+        interstitialAd = new InterstitialAd(CreatePromptActivity.this, "YOUR_PLACEMENT_ID");
+        // Create listeners for the Interstitial Ad
+        InterstitialAdListener interstitialAdListener = new InterstitialAdListener() {
+            @Override
+            public void onInterstitialDisplayed(com.facebook.ads.Ad ad) {
+                // Interstitial ad displayed callback
+                Log.e(TAG, "Interstitial ad displayed.");
+            }
+
+            @Override
+            public void onInterstitialDismissed(com.facebook.ads.Ad ad) {
+                // Interstitial dismissed callback
+                Log.e(TAG, "Interstitial ad dismissed.");
+
+                fullScreenAds();
+
+
+            }
+
+            @Override
+            public void onError(com.facebook.ads.Ad ad, AdError adError) {
+                // Ad error callback
+                Log.e(TAG, "Interstitial ad failed to load: " + adError.getErrorMessage());
+            }
+
+            @Override
+            public void onAdLoaded(com.facebook.ads.Ad ad) {
+                // Interstitial ad is loaded and ready to be displayed
+                Log.d(TAG, "Interstitial ad is loaded and ready to be displayed!");
+
+
+
+
+            }
+
+            @Override
+            public void onAdClicked(com.facebook.ads.Ad ad) {
+                // Ad clicked callback
+                Log.d(TAG, "Interstitial ad clicked!");
+
+
+            }
+
+            @Override
+            public void onLoggingImpression(com.facebook.ads.Ad ad) {
+                // Ad impression logged callback
+                Log.d(TAG, "Interstitial ad impression logged!");
+            }
+        };
+
+        // For auto play video ads, it's recommended to load the ad
+        // at least 30 seconds before it is shown
+        interstitialAd.loadAd(
+                interstitialAd.buildLoadAdConfig()
+                        .withAdListener(interstitialAdListener)
+                        .build());
 
 
 

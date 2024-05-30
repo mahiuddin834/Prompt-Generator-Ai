@@ -86,7 +86,7 @@ public class HomeFragment extends Fragment {
 
     private void loadForYou() {
 
-        databaseReference = FirebaseDatabase.getInstance().getReference("sliderHome");
+        databaseReference = FirebaseDatabase.getInstance().getReference("Digital Art");
         forYouRv.setLayoutManager(new LinearLayoutManager(getActivity()));
 
         forYouRVModelArrayList= new ArrayList<>();
@@ -131,7 +131,7 @@ public class HomeFragment extends Fragment {
 
     private void loadMostPopular() {
 
-        databaseReference = FirebaseDatabase.getInstance().getReference("sliderHome");
+        databaseReference = FirebaseDatabase.getInstance().getReference("SciFi");
         mostPopularRv.setLayoutManager(new LinearLayoutManager(getActivity(), LinearLayoutManager.HORIZONTAL,false));
 
         mostPopularRVModelArrayList = new ArrayList<>();
