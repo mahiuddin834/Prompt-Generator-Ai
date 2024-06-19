@@ -1,15 +1,22 @@
 package com.itnation.promptai;
 
+import android.content.DialogInterface;
+import android.content.pm.PackageManager;
 import android.os.Build;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.FrameLayout;
+import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
+import androidx.activity.result.ActivityResultLauncher;
+import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
@@ -19,10 +26,15 @@ import com.itnation.promptai.Fragment.ExploreFragment;
 import com.itnation.promptai.Fragment.GenerateFragment;
 import com.itnation.promptai.Fragment.HomeFragment;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class MainActivity extends AppCompatActivity {
 
     FrameLayout frameView;
     BottomNavigationView bottomNavigationView;
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,6 +45,7 @@ public class MainActivity extends AppCompatActivity {
 
         bottomNavigationView = findViewById(R.id.bottomNavigationView);
         frameView = findViewById(R.id.frameView);
+
 
         //statusbar white Icon---------------------
 
@@ -102,5 +115,10 @@ public class MainActivity extends AppCompatActivity {
 
 
 
-    }
+    }//==========
+
+
+
+
+
 }

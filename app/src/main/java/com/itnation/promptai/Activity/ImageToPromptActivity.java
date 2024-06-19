@@ -24,7 +24,9 @@ import android.widget.Toast;
 
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 
 import com.itnation.promptai.AiModel.MultiAiModel;
@@ -33,7 +35,7 @@ import com.itnation.promptai.R;
 
 public class ImageToPromptActivity extends AppCompatActivity {
 
-    private static final int SELECT_IMAGE_REQUEST = 1;
+    private static final int REQUEST_PERMISSION_CODE = 100;
     private Bitmap image;
     private ImageView backBtn, inputImage;
     private Button generateBtn, copyPromptBtn;
@@ -57,11 +59,11 @@ public class ImageToPromptActivity extends AppCompatActivity {
 
         backBtn.setOnClickListener(v -> onBackPressed());
 
-        inputImage.setOnClickListener(v -> selectImage());
+        inputImage.setOnClickListener(v -> checkAndRequestPermissions());
 
         generateBtn.setOnClickListener(v -> {
             if (image != null) {
-                generatedImageToPrompt();
+                generateImageToPrompt();
             } else {
                 Toast.makeText(ImageToPromptActivity.this, "Please Tap to Select Image", Toast.LENGTH_SHORT).show();
             }
@@ -102,13 +104,27 @@ public class ImageToPromptActivity extends AppCompatActivity {
                 }
             });
 
-    private void selectImage() {
-        if (ContextCompat.checkSelfPermission(this, Manifest.permission.READ_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
-            requestPermissionLauncher.launch(Manifest.permission.READ_EXTERNAL_STORAGE);
+    private void checkAndRequestPermissions() {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+            // Android 13+ এর জন্য READ_MEDIA_IMAGES পারমিশন
+            if (ContextCompat.checkSelfPermission(this, Manifest.permission.READ_MEDIA_IMAGES) != PackageManager.PERMISSION_GRANTED) {
+                requestPermissionLauncher.launch(Manifest.permission.READ_MEDIA_IMAGES);
+            } else {
+                selectImage();
+            }
         } else {
-            Intent intent = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
-            selectImageLauncher.launch(intent);
+            // Android 13 এর নিচে জন্য READ_EXTERNAL_STORAGE পারমিশন
+            if (ContextCompat.checkSelfPermission(this, Manifest.permission.READ_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
+                ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.READ_EXTERNAL_STORAGE}, REQUEST_PERMISSION_CODE);
+            } else {
+                selectImage();
+            }
         }
+    }
+
+    private void selectImage() {
+        Intent intent = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+        selectImageLauncher.launch(intent);
     }
 
     private void handleImageResult(Intent data) {
@@ -134,7 +150,7 @@ public class ImageToPromptActivity extends AppCompatActivity {
         }
     }
 
-    private void generatedImageToPrompt() {
+    private void generateImageToPrompt() {
         progressBar.setVisibility(View.VISIBLE);
         resultLay.setVisibility(View.GONE);
 
@@ -155,5 +171,17 @@ public class ImageToPromptActivity extends AppCompatActivity {
                 progressBar.setVisibility(View.GONE);
             }
         });
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        if (requestCode == REQUEST_PERMISSION_CODE) {
+            if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                selectImage();
+            } else {
+                Toast.makeText(this, "Permission required to access images", Toast.LENGTH_SHORT).show();
+            }
+        }
     }
 }
