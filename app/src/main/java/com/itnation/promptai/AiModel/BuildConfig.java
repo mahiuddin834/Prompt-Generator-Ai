@@ -2,8 +2,8 @@ package com.itnation.promptai.AiModel;
 
 public class BuildConfig {
 
-    public static String apiKey = "AIzaSyA2ZI1pgQ63vDmRpdItcuORb4cCMZ_RgMs";
+    public static String apiKey = "AIzaSyDFnKaJf4jLGFb39yzcVqAnnCYQKLExgLU";
 
-    //AIzaSyA2ZI1pgQ63vDmRpdItcuORb4cCMZ_RgMs
+    //AIzaSyDFnKaJf4jLGFb39yzcVqAnnCYQKLExgLU
 
 }
